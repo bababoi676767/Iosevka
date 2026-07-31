@@ -11,14 +11,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # 这一行就是解决问题关键：让 Node.js 能兼容加载新式的 ES 模块
+      NODE_OPTIONS: --experimental-require-module
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: '20'
+
       - run: npm ci
-      - run: npm run build -- ttf,woff2::${{ github.event.inputs.planName }}
-      - name: IosevkaBababoi
+
+      - name: 构建字体
+        run: npm run build -- ttf,woff2::${{ github.event.inputs.planName }}
+
+      - name: 上传字体成品
         uses: actions/upload-artifact@v4
         with:
           name: ${{ github.event.inputs.planName }}
