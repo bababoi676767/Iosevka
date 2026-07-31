@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       planName:
-        description: 'IosevkaBababoi'
+        description: 'buildPlans.IosevkaBababoi'
         required: true
         default: 'IosevkaBababoi'
 
